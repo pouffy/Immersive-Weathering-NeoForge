@@ -19,46 +19,55 @@
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "east",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:dandelion"
             }
           },
-          "weight": 5
+          "weight": 1
         },
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "west",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:poppy"
             }
           },
-          "weight": 5
+          "weight": 1
         },
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "south",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:azure_bluet"
             }
           },
-          "weight": 5
+          "weight": 1
         },
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
+              "Name": "minecraft:oxeye_daisy"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "block": {
+              "Name": "minecraft:cornflower"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "above_block": {
+              "Name": "minecraft:sunflower",
               "Properties": {
-                "facing": "north",
-                "flower_amount": "1"
+                "half": "upper"
+              }
+            },
+            "block": {
+              "Name": "minecraft:sunflower",
+              "Properties": {
+                "half": "lower"
               }
             }
           },
@@ -70,7 +79,7 @@
               "Name": "minecraft:short_grass"
             }
           },
-          "weight": 50
+          "weight": 100
         }
       ],
       "weight": 1
@@ -80,7 +89,7 @@
   "position_predicates": [
     {
       "type": "biome_match",
-      "biomes": "minecraft:cherry_grove"
+      "biomes": "minecraft:sunflower_plains"
     }
   ],
   "replacing_target": {

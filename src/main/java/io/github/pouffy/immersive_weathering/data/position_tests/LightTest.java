@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.data.block_growths.Operator;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -22,7 +21,7 @@ public record LightTest(int targetLight, Operator operator, Optional<Vec3i> offs
     public static final MapCodec<LightTest> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.intRange(0,15).fieldOf("light").forGetter(LightTest::targetLight),
             Operator.CODEC.fieldOf("operator").forGetter(LightTest::operator),
-            StrOpt.of(Vec3i.offsetCodec(16),"offset").forGetter(LightTest::offset)
+            Vec3i.offsetCodec(16).optionalFieldOf("offset").forGetter(LightTest::offset)
     ).apply(instance, LightTest::new));
 
     static final Type<LightTest> TYPE =

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.reg.ModRuleTests;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
@@ -18,7 +17,7 @@ public class FluidMatchTest extends RuleTest {
 
     public static final MapCodec<FluidMatchTest> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RegistryCodecs.homogeneousList(Registries.FLUID).fieldOf("fluids").forGetter(b -> b.fluids),
-            StrOpt.of(Codec.FLOAT,"probability",1f).forGetter(b->b.probability)
+            Codec.FLOAT.optionalFieldOf("probability",1f).forGetter(b->b.probability)
     ).apply(instance, FluidMatchTest::new));
 
     private final HolderSet<Fluid> fluids;

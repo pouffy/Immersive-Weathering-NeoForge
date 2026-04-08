@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.data.block_growths.Operator;
 import io.github.pouffy.immersive_weathering.reg.ModRuleTests;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -52,13 +51,13 @@ public class BlockPropertyTest extends RuleTest {
         public static Codec<PropPredicate> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BuiltInRegistries.BLOCK.byNameCodec().fieldOf("from_block").forGetter(PropPredicate::getFromBlock),
                 Codec.STRING.fieldOf("property").forGetter(p -> p.property.getName()),
-                StrOpt.of(Codec.STRING, "value").forGetter(p -> {
+                Codec.STRING.optionalFieldOf("value").forGetter(p -> {
                     if (p.targetValue != null) {
                         return Optional.of(p.targetValue.toString());
                     }
                     return Optional.empty();
                 }),
-                StrOpt.of(Operator.CODEC, "operator", Operator.EQUAL).forGetter(PropPredicate::getOperator)
+                Operator.CODEC.optionalFieldOf("operator", Operator.EQUAL).forGetter(PropPredicate::getOperator)
         ).apply(i, (block, propertyName, valueStr, operator) -> {
             Property<?> property = null;
             

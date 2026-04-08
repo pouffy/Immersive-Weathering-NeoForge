@@ -19,50 +19,26 @@
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "east",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:dandelion"
             }
           },
-          "weight": 5
+          "weight": 10
         },
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "west",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:fern"
             }
           },
-          "weight": 5
+          "weight": 50
         },
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "south",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:melon"
             }
           },
-          "weight": 5
-        },
-        {
-          "data": {
-            "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "north",
-                "flower_amount": "1"
-              }
-            }
-          },
-          "weight": 5
+          "weight": 10
         },
         {
           "data": {
@@ -70,7 +46,7 @@
               "Name": "minecraft:short_grass"
             }
           },
-          "weight": 50
+          "weight": 1
         }
       ],
       "weight": 1
@@ -80,7 +56,7 @@
   "position_predicates": [
     {
       "type": "biome_match",
-      "biomes": "minecraft:cherry_grove"
+      "biomes": "minecraft:sparse_jungle"
     }
   ],
   "replacing_target": {

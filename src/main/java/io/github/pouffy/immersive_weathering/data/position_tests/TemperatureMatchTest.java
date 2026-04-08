@@ -5,7 +5,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.mixins.accessors.BiomeAccessor;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.Level;
@@ -22,7 +21,7 @@ public record TemperatureMatchTest(float max, float min, boolean useLocalPos) im
             instance -> instance.group(
                             Codec.FLOAT.fieldOf("min").forGetter(g -> g.min),
                             Codec.FLOAT.fieldOf("max").forGetter(g -> g.max),
-                            StrOpt.of(Codec.BOOL,"use_local_pos", true).forGetter(TemperatureMatchTest::useLocalPos))
+                            Codec.BOOL.optionalFieldOf("use_local_pos", true).forGetter(TemperatureMatchTest::useLocalPos))
                     .apply( instance, TemperatureMatchTest::new)).comapFlatMap(t -> {
         if (t.max < t.min) {
             return DataResult.error(() -> "Max must be at least min, min_inclusive: " + t.min + ", max_inclusive: " + t.max);

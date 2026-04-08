@@ -1,12 +1,17 @@
 {
   "area_condition": {
     "type": "generate_if_not_too_many",
+    "includes": "#immersive_weathering:small_plants",
+    "must_have": {
+      "blocks": "#immersive_weathering:grass_spread_source",
+      "predicate_type": "immersive_weathering:block_set_match"
+    },
     "radiusX": 2,
     "radiusY": 2,
     "radiusZ": 2,
-    "requiredAmount": 3
+    "requiredAmount": 6
   },
-  "growth_chance": 0.005,
+  "growth_chance": 0.001,
   "growth_for_face": [
     {
       "direction": "up",
@@ -14,29 +19,34 @@
         {
           "data": {
             "block": {
-              "Name": "minecraft:sugar_cane",
-              "Properties": {
-                "age": "0"
-              }
+              "Name": "minecraft:blue_orchid"
             }
           },
           "weight": 1
+        },
+        {
+          "data": {
+            "block": {
+              "Name": "minecraft:short_grass"
+            }
+          },
+          "weight": 100
         }
       ],
       "weight": 1
     }
   ],
-  "owners": "immersive_weathering:earthen_clay",
+  "owners": "#immersive_weathering:grassy_blocks",
   "position_predicates": [
     {
       "type": "biome_match",
-      "biomes": "#minecraft:is_river"
+      "biomes": "minecraft:swamp"
     }
   ],
   "replacing_target": {
     "block": "minecraft:air",
     "predicate_type": "minecraft:random_block_match",
-    "probability": 0.7
+    "probability": 0.8
   },
   "tick_sources": [
     "block_tick"

@@ -6,7 +6,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.data.position_tests.IPositionRuleTest;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -28,11 +27,11 @@ public class SelfFluidGenerator implements IFluidGenerator {
     public static final MapCodec<SelfFluidGenerator> CODEC = RecordCodecBuilder.<SelfFluidGenerator>mapCodec(
             instance -> instance.group(
                     BuiltInRegistries.FLUID.byNameCodec().fieldOf("fluid").forGetter(SelfFluidGenerator::getFluid),
-                    StrOpt.of(FluidType.CODEC, "fluid_type", FluidType.BOTH).forGetter(SelfFluidGenerator::getFluidType),
+                    FluidType.CODEC.optionalFieldOf("fluid_type", FluidType.BOTH).forGetter(SelfFluidGenerator::getFluidType),
                     BlockState.CODEC.fieldOf("generate").forGetter(SelfFluidGenerator::getGrowth),
                     AdjacentBlocks.CODEC.fieldOf("adjacent_blocks").forGetter(SelfFluidGenerator::getAdjacentBlocksCondition),
-                    StrOpt.of(IPositionRuleTest.CODEC, "additional_target_check").forGetter(SelfFluidGenerator::getPositionTests),
-                    StrOpt.of(Codec.INT, "priority", 0).forGetter(SelfFluidGenerator::getPriority)
+                    IPositionRuleTest.CODEC.optionalFieldOf("additional_target_check").forGetter(SelfFluidGenerator::getPositionTests),
+                    Codec.INT.optionalFieldOf("priority", 0).forGetter(SelfFluidGenerator::getPriority)
             ).apply(instance, SelfFluidGenerator::new));
 
     public static final IFluidGenerator.Type<SelfFluidGenerator> TYPE = new Type<>(CODEC, "target_self");
@@ -105,10 +104,10 @@ public class SelfFluidGenerator implements IFluidGenerator {
 
         public static final Codec<AdjacentBlocks> CODEC = RecordCodecBuilder.<AdjacentBlocks>create(
                 instance -> instance.group(
-                        StrOpt.of(RuleTest.CODEC.listOf(), "sides", List.of()).forGetter(a -> a.sidesBlocks),
-                        StrOpt.of(RuleTest.CODEC.listOf(), "any", List.of()).forGetter(a -> a.anyBlocks),
-                        StrOpt.of(RuleTest.CODEC, "up").forGetter(a -> Optional.ofNullable(a.upBlock)),
-                        StrOpt.of(RuleTest.CODEC, "down").forGetter(a -> Optional.ofNullable(a.downBlock))
+                        RuleTest.CODEC.listOf().optionalFieldOf("sides", List.of()).forGetter(a -> a.sidesBlocks),
+                        RuleTest.CODEC.listOf().optionalFieldOf("any", List.of()).forGetter(a -> a.anyBlocks),
+                        RuleTest.CODEC.optionalFieldOf("up").forGetter(a -> Optional.ofNullable(a.upBlock)),
+                        RuleTest.CODEC.optionalFieldOf("down").forGetter(a -> Optional.ofNullable(a.downBlock))
 
                 ).apply(instance, AdjacentBlocks::new)).comapFlatMap(arg -> {
             if (arg.sidesBlocks.isEmpty() && arg.anyBlocks.isEmpty() && arg.upBlock == null && arg.downBlock == null) {

@@ -60,11 +60,6 @@ public class BlockGrowthBuilder {
         return this;
     }
 
-    public BlockGrowthBuilder directionalGrowth(ConfigurableBlockGrowth.DirectionalList... growthsForDirection) {
-        growthForDirection.addAll(List.of(growthsForDirection));
-        return this;
-    }
-
     public BlockGrowthBuilder directionalGrowth(Direction direction, Integer weight, SimpleWeightedRandomList<BlockPair> randomList) {
         growthForDirection.add(new ConfigurableBlockGrowth.DirectionalList(Optional.ofNullable(direction), Optional.ofNullable(weight), randomList));
         return this;

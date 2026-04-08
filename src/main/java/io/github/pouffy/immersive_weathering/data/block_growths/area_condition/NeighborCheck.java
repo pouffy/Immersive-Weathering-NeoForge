@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.data.block_growths.growths.ConfigurableBlockGrowth;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,10 +22,9 @@ public record NeighborCheck(RuleTest mustHavePredicate, RuleTest mustNotHavePred
     public static final String NAME = "neighbor_based_generation";
     public static final MapCodec<NeighborCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RuleTest.CODEC.fieldOf("must_have").forGetter(NeighborCheck::mustHavePredicate),
-            StrOpt.of(RuleTest.CODEC,"must_not_have", AlwaysTrueTest.INSTANCE).forGetter(NeighborCheck::mustNotHavePredicate),
-            StrOpt.of(Codec.INT,"required_amount", 1).forGetter(NeighborCheck::requiredAmount),
-            StrOpt.of(Direction.CODEC.listOf(),"directions", List.of(Direction.values())).forGetter(NeighborCheck::directions)
-
+            RuleTest.CODEC.optionalFieldOf("must_not_have", AlwaysTrueTest.INSTANCE).forGetter(NeighborCheck::mustNotHavePredicate),
+            Codec.INT.optionalFieldOf("required_amount", 1).forGetter(NeighborCheck::requiredAmount),
+            Direction.CODEC.listOf().optionalFieldOf("directions", List.of(Direction.values())).forGetter(NeighborCheck::directions)
     ).apply(instance, NeighborCheck::new));
     static final AreaConditionType<NeighborCheck> TYPE = new AreaConditionType<>(NeighborCheck.CODEC, NeighborCheck.NAME);
 

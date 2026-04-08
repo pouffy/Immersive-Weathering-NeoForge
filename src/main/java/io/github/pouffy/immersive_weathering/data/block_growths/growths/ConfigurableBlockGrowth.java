@@ -9,7 +9,6 @@ import io.github.pouffy.immersive_weathering.data.block_growths.TickSource;
 import io.github.pouffy.immersive_weathering.data.block_growths.area_condition.AreaCondition;
 import io.github.pouffy.immersive_weathering.data.position_tests.IPositionRuleTest;
 import io.github.pouffy.immersive_weathering.mixins.accessors.RandomBlockMatchTestAccessor;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
@@ -40,15 +39,15 @@ public class ConfigurableBlockGrowth implements IBlockGrowth {
             List.of(), false, false);
 
     public static final Codec<ConfigurableBlockGrowth> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            StrOpt.of(TickSource.CODEC.listOf(), "tick_sources", List.of()).forGetter(ConfigurableBlockGrowth::getTickSources),
+            TickSource.CODEC.listOf().optionalFieldOf("tick_sources", List.of()).forGetter(ConfigurableBlockGrowth::getTickSources),
             Codec.FLOAT.fieldOf("growth_chance").forGetter(ConfigurableBlockGrowth::getGrowthChance),
             RuleTest.CODEC.fieldOf("replacing_target").forGetter(ConfigurableBlockGrowth::getTargetPredicate),
-            StrOpt.of(AreaCondition.CODEC, "area_condition", AreaCondition.EMPTY).forGetter(ConfigurableBlockGrowth::getAreaCondition),
+            AreaCondition.CODEC.optionalFieldOf("area_condition", AreaCondition.EMPTY).forGetter(ConfigurableBlockGrowth::getAreaCondition),
             DirectionalList.CODEC.listOf().fieldOf("growth_for_face").forGetter(ConfigurableBlockGrowth::encodeRandomLists),
-            StrOpt.of(RegistryCodecs.homogeneousList(Registries.BLOCK),"owners").forGetter(b -> Optional.ofNullable(b.owners)),
-            StrOpt.of(IPositionRuleTest.CODEC.listOf(),"position_predicates", List.of()).forGetter(ConfigurableBlockGrowth::getPositionTests),
-            StrOpt.of(Codec.BOOL, "target_self", false).forGetter(ConfigurableBlockGrowth::targetSelf),
-            StrOpt.of(Codec.BOOL, "destroy_target", false).forGetter(ConfigurableBlockGrowth::destroyTarget)
+            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("owners").forGetter(b -> Optional.ofNullable(b.owners)),
+            IPositionRuleTest.CODEC.listOf().optionalFieldOf("position_predicates", List.of()).forGetter(ConfigurableBlockGrowth::getPositionTests),
+            Codec.BOOL.optionalFieldOf("target_self", false).forGetter(ConfigurableBlockGrowth::targetSelf),
+            Codec.BOOL.optionalFieldOf("destroy_target", false).forGetter(ConfigurableBlockGrowth::destroyTarget)
     ).apply(instance, ConfigurableBlockGrowth::new));
 
     @Nullable //null for universal ones
@@ -125,15 +124,8 @@ public class ConfigurableBlockGrowth implements IBlockGrowth {
     public List<DirectionalList> encodeRandomLists() {
         List<DirectionalList> list = new ArrayList<>();
         for (var e : growthForDirection.unwrap()) {
-            Optional<Direction> dir;
-            Optional<Integer> weight;
-            if (growthForDirection.unwrap().size() == 1) {
-                dir = Optional.empty();
-                weight = Optional.empty();
-            } else {
-                dir = Optional.of(e.data());
-                weight = Optional.of(e.getWeight().asInt());
-            }
+            Optional<Direction> dir = Optional.of(e.data());
+            Optional<Integer> weight = Optional.of(e.getWeight().asInt());
             list.add(new DirectionalList(dir, weight, blockGrowths.get(e.data())));
         }
         return list;
@@ -259,8 +251,8 @@ public class ConfigurableBlockGrowth implements IBlockGrowth {
     public record DirectionalList(Optional<Direction> direction, Optional<Integer> weight, SimpleWeightedRandomList<BlockPair> randomList) {
 
         public static final Codec<DirectionalList> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                StrOpt.of(Direction.CODEC, "direction").forGetter(DirectionalList::direction),
-                StrOpt.of(Codec.INT,"weight").forGetter(DirectionalList::weight),
+                Direction.CODEC.optionalFieldOf("direction").forGetter(DirectionalList::direction),
+                Codec.INT.optionalFieldOf("weight").forGetter(DirectionalList::weight),
                 SimpleWeightedRandomList.wrappedCodec(BlockPair.CODEC).fieldOf("growth").forGetter(DirectionalList::randomList)
         ).apply(instance, DirectionalList::new));
     }

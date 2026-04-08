@@ -11,7 +11,7 @@
     "radiusZ": 2,
     "requiredAmount": 6
   },
-  "growth_chance": 0.001,
+  "growth_chance": 5.0E-4,
   "growth_for_face": [
     {
       "direction": "up",
@@ -19,50 +19,18 @@
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "east",
-                "flower_amount": "1"
-              }
+              "Name": "immersive_weathering:dune_grass"
             }
           },
-          "weight": 5
+          "weight": 50
         },
         {
           "data": {
             "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "west",
-                "flower_amount": "1"
-              }
+              "Name": "minecraft:dead_bush"
             }
           },
-          "weight": 5
-        },
-        {
-          "data": {
-            "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "south",
-                "flower_amount": "1"
-              }
-            }
-          },
-          "weight": 5
-        },
-        {
-          "data": {
-            "block": {
-              "Name": "minecraft:pink_petals",
-              "Properties": {
-                "facing": "north",
-                "flower_amount": "1"
-              }
-            }
-          },
-          "weight": 5
+          "weight": 30
         },
         {
           "data": {
@@ -70,7 +38,7 @@
               "Name": "minecraft:short_grass"
             }
           },
-          "weight": 50
+          "weight": 100
         }
       ],
       "weight": 1
@@ -80,7 +48,12 @@
   "position_predicates": [
     {
       "type": "biome_match",
-      "biomes": "minecraft:cherry_grove"
+      "biomes": [
+        "minecraft:wooded_badlands",
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:windswept_savanna"
+      ]
     }
   ],
   "replacing_target": {

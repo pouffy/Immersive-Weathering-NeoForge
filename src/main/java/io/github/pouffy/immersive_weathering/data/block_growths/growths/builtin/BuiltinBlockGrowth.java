@@ -6,7 +6,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.data.block_growths.TickSource;
 import io.github.pouffy.immersive_weathering.data.block_growths.growths.IBlockGrowth;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -29,11 +28,9 @@ public abstract class BuiltinBlockGrowth implements IBlockGrowth {
                             return DataResult.error(() -> "No builtin growth found with id " + n);
                         }
                         Codec<BuiltinBlockGrowth> codec = RecordCodecBuilder.create(i -> i.group(
-                                StrOpt.of(TickSource.CODEC.listOf(), "tick_sources", List.of(TickSource.BLOCK_TICK))
-                                        .forGetter(b -> b.sources),
-                                StrOpt.of(RegistryCodecs.homogeneousList(Registries.BLOCK), "owners")
-                                        .forGetter(b -> Optional.ofNullable(b.owners)),
-                                StrOpt.of(Codec.FLOAT, "growth_chance", 1f).forGetter(b -> b.growthChance)
+                                TickSource.CODEC.listOf().optionalFieldOf("tick_sources", List.of(TickSource.BLOCK_TICK)).forGetter(b -> b.sources),
+                                RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("owners").forGetter(b -> Optional.ofNullable(b.owners)),
+                                Codec.FLOAT.optionalFieldOf("growth_chance", 1f).forGetter(b -> b.growthChance)
                         ).apply(i, (o, s, c) -> factory.create(n, s.orElse(null), o, c)));
                         return DataResult.success(MapCodec.assumeMapUnsafe(codec));
                     });

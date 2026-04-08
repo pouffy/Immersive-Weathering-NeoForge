@@ -1,9 +1,7 @@
 package io.github.pouffy.immersive_weathering.data.position_tests;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
@@ -20,7 +18,7 @@ public record BlockTest(Vec3i offset, RuleTest predicate) implements IPositionRu
     public static final String NAME = "block_test";
 
     public static final MapCodec<BlockTest> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            StrOpt.of(Vec3i.offsetCodec(16),"offset", Vec3i.ZERO).forGetter(BlockTest::offset),
+            Vec3i.offsetCodec(16).optionalFieldOf("offset", Vec3i.ZERO).forGetter(BlockTest::offset),
             RuleTest.CODEC.fieldOf("predicate").forGetter(BlockTest::predicate)
     ).apply(instance, BlockTest::new));
 

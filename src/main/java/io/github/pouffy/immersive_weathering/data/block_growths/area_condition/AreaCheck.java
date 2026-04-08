@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.pouffy.immersive_weathering.data.block_growths.growths.ConfigurableBlockGrowth;
-import io.github.pouffy.immersive_weathering.util.StrOpt;
 import io.github.pouffy.immersive_weathering.util.WeatheringHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
@@ -30,10 +29,10 @@ public record AreaCheck(int rX, int rY, int rZ, int requiredAmount, Optional<Int
             Codec.INT.fieldOf("radiusY").forGetter(AreaCheck::rY),
             Codec.INT.fieldOf("radiusZ").forGetter(AreaCheck::rZ),
             Codec.INT.fieldOf("requiredAmount").forGetter(AreaCheck::requiredAmount),
-            StrOpt.of(Codec.INT, "yOffset").forGetter(AreaCheck::yOffset),
-            StrOpt.of(RuleTest.CODEC, "must_have").forGetter(AreaCheck::mustHavePredicate),
-            StrOpt.of(RuleTest.CODEC, "must_not_have").forGetter(AreaCheck::mustNotHavePredicate),
-            StrOpt.of(RegistryCodecs.homogeneousList(Registries.BLOCK), "includes").forGetter(AreaCheck::extraIncluded)
+            Codec.INT.optionalFieldOf("yOffset").forGetter(AreaCheck::yOffset),
+            RuleTest.CODEC.optionalFieldOf("must_have").forGetter(AreaCheck::mustHavePredicate),
+            RuleTest.CODEC.optionalFieldOf("must_not_have").forGetter(AreaCheck::mustNotHavePredicate),
+            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("includes").forGetter(AreaCheck::extraIncluded)
     ).apply(instance, AreaCheck::new));
     static final AreaConditionType<AreaCheck> TYPE = new AreaConditionType<>(AreaCheck.CODEC, AreaCheck.NAME);
 
