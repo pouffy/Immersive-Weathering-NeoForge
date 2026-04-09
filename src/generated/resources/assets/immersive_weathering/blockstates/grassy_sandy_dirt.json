@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "immersive_weathering:block/grassy_sandy_dirt"
+      },
+      {
+        "model": "immersive_weathering:block/grassy_sandy_dirt",
+        "y": 90
+      },
+      {
+        "model": "immersive_weathering:block/grassy_sandy_dirt",
+        "y": 180
+      },
+      {
+        "model": "immersive_weathering:block/grassy_sandy_dirt",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "immersive_weathering:block/grassy_sandy_dirt_snowy"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "type": "configurable",
+  "area_condition": {
+    "type": "generate_if_not_too_many",
+    "must_have": {
+      "fluids": "minecraft:flowing_water",
+      "predicate_type": "immersive_weathering:fluid_match"
+    },
+    "radiusX": 1,
+    "radiusY": 1,
+    "radiusZ": 1,
+    "requiredAmount": 16
+  },
+  "growth_chance": 0.005,
+  "growth_for_face": [
+    {
+      "direction": "down",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:red_sand_layer_block",
+              "Properties": {
+                "layers": "1"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    }
+  ],
+  "owners": "minecraft:red_sandstone",
+  "replacing_target": {
+    "block": "minecraft:air",
+    "predicate_type": "minecraft:block_match"
+  },
+  "tick_sources": [
+    "block_tick"
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "type": "configurable",
+  "area_condition": {
+    "type": "generate_if_not_too_many",
+    "radiusX": 3,
+    "radiusY": 3,
+    "radiusZ": 3,
+    "requiredAmount": 6
+  },
+  "growth_chance": 0.001,
+  "growth_for_face": [
+    {
+      "direction": "north",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:hanging_roots_wall",
+              "Properties": {
+                "facing": "south",
+                "waterlogged": "false"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "east",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:hanging_roots_wall",
+              "Properties": {
+                "facing": "west",
+                "waterlogged": "false"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "south",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:hanging_roots_wall",
+              "Properties": {
+                "facing": "north",
+                "waterlogged": "false"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "west",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:hanging_roots_wall",
+              "Properties": {
+                "facing": "east",
+                "waterlogged": "false"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "down",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "minecraft:hanging_roots",
+              "Properties": {
+                "waterlogged": "false"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 2
+    }
+  ],
+  "owners": [
+    "minecraft:rooted_dirt",
+    "immersive_weathering:rooted_grass_block"
+  ],
+  "replacing_target": {
+    "blocks": [
+      "minecraft:air",
+      "minecraft:water"
+    ],
+    "predicate_type": "immersive_weathering:block_set_match",
+    "probability": 0.8
+  },
+  "tick_sources": [
+    "block_tick"
+  ]
+}

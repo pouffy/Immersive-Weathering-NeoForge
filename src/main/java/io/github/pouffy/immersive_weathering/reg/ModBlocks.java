@@ -112,7 +112,7 @@ public class ModBlocks {
 
     //vegetation
 
-    public static final DeferredBlock<Block> MOSS = regBlock("moss", () ->
+    public static final DeferredBlock<MossMultifaceBlock> MOSS = regBlock("moss", () ->
             new MossMultifaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK).randomTicks().instabreak().sound(SoundType.MOSS_CARPET).noOcclusion().noCollission()));
 
     public static final DeferredBlock<Block> WEEDS = regWithItem("weeds", () ->
@@ -345,9 +345,10 @@ public class ModBlocks {
             new ThinIceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .isViewBlocking(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER)));
 
-    public static final DeferredBlock<Block> FROST = regBlock("frost", () ->
+    public static final DeferredBlock<FrostBlock> FROST = regBlock("frost", () ->
             new FrostBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW)
-                    .randomTicks().instabreak().sound(SoundType.POWDER_SNOW).noOcclusion().noCollission()));
+                    .randomTicks().instabreak().sound(SoundType.POWDER_SNOW).noOcclusion().noCollission()
+                    .isViewBlocking(NEVER).isSuffocating(NEVER)));
     public static final DeferredBlock<Block> FROSTY_GRASS = regWithItem("frosty_grass", () ->
             new FrostyGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
                     .randomTicks().sound(SoundType.POWDER_SNOW)));

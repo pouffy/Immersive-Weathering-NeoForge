@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#immersive_weathering:has_silt",
+  "features": "immersive_weathering:silt",
+  "step": "raw_generation"
+}

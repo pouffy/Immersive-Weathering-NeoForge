@@ -213,7 +213,7 @@ public class ModDataMapProvider extends DataMapProvider {
     private void snowy(DataMapProvider.Builder<Snowable, Block> builder, Supplier<Block> unaffected, Supplier<Block> snowy) {
         builder.add(unaffected.get().builtInRegistryHolder(), Snowable.create(snowy.get()), false);
     }
-    private void frosty(DataMapProvider.Builder<Frostable, Block> builder, Supplier<Block> unaffected, Supplier<Block> frosty) {
+    private void frosty(DataMapProvider.Builder<Frostable, Block> builder, Supplier<? extends Block> unaffected, Supplier<? extends Block> frosty) {
         builder.add(unaffected.get().builtInRegistryHolder(), Frostable.create(frosty.get()), false);
     }
     private void wax(DataMapProvider.Builder<Waxable, Block> builder, Supplier<Block> unwaxed, Supplier<Block> waxed) {

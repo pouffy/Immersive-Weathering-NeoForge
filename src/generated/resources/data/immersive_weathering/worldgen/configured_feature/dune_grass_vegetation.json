@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:short_grass"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:dead_bush"
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "immersive_weathering:dune_grass"
+          },
+          "weight": 10
+        }
+      ]
+    }
+  }
+}

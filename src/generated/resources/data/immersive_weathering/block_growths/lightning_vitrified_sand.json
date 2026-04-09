@@ -1,0 +1,6 @@
+{
+  "type": "lightning_vitrified_sand",
+  "tick_sources": [
+    "lightning_strike"
+  ]
+}

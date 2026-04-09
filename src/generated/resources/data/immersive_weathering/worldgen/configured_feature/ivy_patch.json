@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:multiface_growth",
+  "config": {
+    "block": "immersive_weathering:ivy",
+    "can_be_placed_on": [
+      "minecraft:birch_log",
+      "minecraft:oak_log",
+      "minecraft:dark_oak_log"
+    ],
+    "can_place_on_ceiling": true,
+    "can_place_on_floor": false,
+    "can_place_on_wall": true,
+    "chance_of_spreading": 0.5,
+    "search_range": 20
+  }
+}

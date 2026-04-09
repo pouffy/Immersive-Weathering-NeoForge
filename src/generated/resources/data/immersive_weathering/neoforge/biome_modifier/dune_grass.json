@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#immersive_weathering:has_dune_grass",
+  "features": "immersive_weathering:dune_grass_patch",
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,39 @@
+{
+  "type": "configurable",
+  "area_condition": {
+    "type": "generate_if_not_too_many",
+    "includes": "minecraft:weeping_vines_plant",
+    "radiusX": 2,
+    "radiusY": 3,
+    "radiusZ": 2,
+    "requiredAmount": 6
+  },
+  "growth_chance": 0.1,
+  "growth_for_face": [
+    {
+      "direction": "down",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "minecraft:weeping_vines",
+              "Properties": {
+                "age": "0"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    }
+  ],
+  "owners": "minecraft:nether_wart_block",
+  "replacing_target": {
+    "block": "minecraft:air",
+    "predicate_type": "minecraft:block_match"
+  },
+  "tick_sources": [
+    "block_tick"
+  ]
+}

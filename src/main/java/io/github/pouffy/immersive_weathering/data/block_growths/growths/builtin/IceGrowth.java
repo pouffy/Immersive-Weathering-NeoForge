@@ -48,6 +48,10 @@ public class IceGrowth implements IBlockGrowth {
         this.growthChance = growthChance;
     }
 
+    public static IceGrowth simple(HolderSet<Block> owners) {
+        return new IceGrowth(owners, List.of(TickSource.BLOCK_TICK), 1f);
+    }
+
     @Override
     public Type<?> getType() {
         return TYPE;

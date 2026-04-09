@@ -2,10 +2,7 @@ package io.github.pouffy.immersive_weathering.datagen.client;
 
 import com.mojang.datafixers.util.Pair;
 import io.github.pouffy.immersive_weathering.ImmersiveWeathering;
-import io.github.pouffy.immersive_weathering.blocks.IvyBlock;
-import io.github.pouffy.immersive_weathering.blocks.LayerBlock;
-import io.github.pouffy.immersive_weathering.blocks.LeafPileBlock;
-import io.github.pouffy.immersive_weathering.blocks.WeedsBlock;
+import io.github.pouffy.immersive_weathering.blocks.*;
 import io.github.pouffy.immersive_weathering.blocks.charred.CharredBlock;
 import io.github.pouffy.immersive_weathering.blocks.charred.CharredPillarBlock;
 import io.github.pouffy.immersive_weathering.blocks.sandy.SandyBlock;
@@ -46,6 +43,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ModBlocks.LEAF_PILES.values().forEach(this::leafPile);
         layered(ModBlocks.SAND_LAYER_BLOCK, "minecraft:block/sand");
         layered(ModBlocks.RED_SAND_LAYER_BLOCK, "minecraft:block/red_sand");
+        createMultiface(ModBlocks.FROST.get());
         charredLog(ModBlocks.CHARRED_LOG.get());
         charredPlanks(ModBlocks.CHARRED_PLANKS.get());
         charredSlab(ModBlocks.CHARRED_SLAB.get(), ModBlocks.CHARRED_PLANKS);
@@ -76,7 +74,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         sidedStairs(ModBlocks.SNOWY_STONE_STAIRS, ImmersiveWeathering.res("block/snowy_stone_side"), ResourceLocation.parse("minecraft:block/snow"), ResourceLocation.withDefaultNamespace("block/stone"));
         sidedSlab(ModBlocks.SNOWY_STONE_SLAB, ImmersiveWeathering.res("block/snowy_stone_side"), ResourceLocation.parse("minecraft:block/snow"), ResourceLocation.withDefaultNamespace("block/stone"));
 
-        cubeAll(ModBlocks.SNOWY_COBBLESTONE.get());
+        simpleBlockAndItem(ModBlocks.SNOWY_COBBLESTONE);
         simpleStairs(ModBlocks.SNOWY_COBBLESTONE_STAIRS, ModBlocks.SNOWY_COBBLESTONE);
         simpleSlab(ModBlocks.SNOWY_COBBLESTONE_SLAB, ModBlocks.SNOWY_COBBLESTONE);
 
@@ -180,6 +178,85 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end();
 
         this.getVariantBuilder(ModBlocks.DUNE_GRASS.get()).forAllStatesExcept((state) -> ConfiguredModel.builder().modelFile(this.models().getExistingFile(ImmersiveWeathering.res("block/dune_grass"))).build());
+
+        this.getVariantBuilder(ModBlocks.SANDY_DIRT.get()).forAllStatesExcept((state) -> {
+            var model = cubeAll(ModBlocks.SANDY_DIRT.get());
+            return ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model).rotationY(90).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(model).rotationY(270).build();
+        });
+        this.getVariantBuilder(ModBlocks.GRASSY_SANDY_DIRT.get()).forAllStatesExcept((state) -> {
+            boolean snowy = state.getValue(SnowyDirtBlock.SNOWY);
+            var top = ImmersiveWeathering.res("minecraft:block/grass_block_top");
+            var side = ImmersiveWeathering.res("block/grassy_sandy_dirt_side");
+            var bottom = ImmersiveWeathering.res("block/sandy_dirt");
+            var model = this.models().withExistingParent("grassy_sandy_dirt", ImmersiveWeathering.res("block/grassy_block"))
+                    .texture("particle", bottom)
+                    .texture("top", top)
+                    .texture("top_overlay", top)
+                    .texture("bottom", bottom)
+                    .texture("side", side)
+                    .texture("side_overlay", ImmersiveWeathering.res("block/grassy_sandy_dirt_overlay"));
+            var snowyModel = this.models().withExistingParent("grassy_sandy_dirt_snowy", ImmersiveWeathering.res("block/grassy_snowy_block"))
+                    .texture("particle", bottom)
+                    .texture("side", bottom)
+                    .texture("bottom", bottom);
+            if (snowy) {
+                return ConfiguredModel.builder().modelFile(snowyModel).build();
+            }
+            return ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model).rotationY(90).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(model).rotationY(270).build();
+        });
+        this.getVariantBuilder(ModBlocks.SILT.get()).forAllStatesExcept((state) -> {
+            var model = cubeAll(ModBlocks.SILT.get());
+            return ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model).rotationY(90).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(model).rotationY(270).build();
+        });
+        this.getVariantBuilder(ModBlocks.GRASSY_SILT.get()).forAllStatesExcept((state) -> {
+            boolean snowy = state.getValue(SnowyDirtBlock.SNOWY);
+            var top = ImmersiveWeathering.res("minecraft:block/grass_block_top");
+            var side = ImmersiveWeathering.res("block/grassy_silt_side");
+            var bottom = ImmersiveWeathering.res("block/silt");
+            var model = this.models().withExistingParent("grassy_silt", ImmersiveWeathering.res("block/grassy_block"))
+                    .texture("particle", bottom)
+                    .texture("top", top)
+                    .texture("top_overlay", top)
+                    .texture("bottom", bottom)
+                    .texture("side", side)
+                    .texture("side_overlay", ImmersiveWeathering.res("block/grassy_silt_overlay"));
+            var snowyModel = this.models().withExistingParent("grassy_silt_snowy", ImmersiveWeathering.res("block/grassy_snowy_block"))
+                    .texture("particle", bottom)
+                    .texture("side", bottom)
+                    .texture("bottom", bottom);
+            if (snowy) {
+                return ConfiguredModel.builder().modelFile(snowyModel).build();
+            }
+            return ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model).rotationY(90).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(model).rotationY(270).build();
+        });
+        simpleBlockAndItem(ModBlocks.PERMAFROST);
+        this.getVariantBuilder(ModBlocks.GRASSY_PERMAFROST.get()).forAllStatesExcept((state) -> {
+            boolean snowy = state.getValue(SnowyDirtBlock.SNOWY);
+            var side = ImmersiveWeathering.res("block/grassy_permafrost_side");
+            var bottom = ImmersiveWeathering.res("block/permafrost");
+            var model = this.models().withExistingParent("grassy_permafrost", ImmersiveWeathering.res("block/grassy_block"))
+                    .texture("particle", bottom)
+                    .texture("bottom", bottom)
+                    .texture("side", side);
+            var snowyModel = this.models().withExistingParent("grassy_permafrost_snowy", ImmersiveWeathering.res("block/grassy_snowy_block"))
+                    .texture("particle", bottom)
+                    .texture("side", side)
+                    .texture("bottom", bottom);
+            if (snowy) {
+                return ConfiguredModel.builder().modelFile(snowyModel).build();
+            }
+            return ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model).rotationY(90).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(model).rotationY(270).build();
+        });
+
+        this.getVariantBuilder(ModBlocks.ICICLE.get()).forAllStatesExcept((state) -> {
+            var thickness = state.getValue(IcicleBlock.THICKNESS);
+            var direction = state.getValue(IcicleBlock.TIP_DIRECTION);
+            String fileName = "icicle_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
+            var model = this.models().withExistingParent(fileName, ImmersiveWeathering.res("block/icicle")).texture("cross", "block/"+fileName);
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
+
+        cubeSideBottomTop(ModBlocks.LOAM, ImmersiveWeathering.res("block/loam_top"), ImmersiveWeathering.res("block/loam_side"), ImmersiveWeathering.res("minecraft:block/dirt"));
     }
 
     private void simpleBlockItem(Supplier<? extends Block> block) {
@@ -281,23 +358,32 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void createMultiface(Block block) {
         ResourceLocation resourcelocation = ModelLocationUtils.getModelLocation(block);
-        MultiPartGenerator multipartgenerator = MultiPartGenerator.multiPart(block);
-        Condition.TerminalCondition condition$terminalcondition = Util.make(
-                Condition.condition(), condition -> MULTIFACE_GENERATOR.stream().map(Pair::getFirst).forEach(side -> {
-                    if (block.defaultBlockState().hasProperty(side)) {
-                        condition.term(side, false);
-                    }
-                })
-        );
-
-        for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : MULTIFACE_GENERATOR) {
-            BooleanProperty side = pair.getFirst();
-            Function<ResourceLocation, Variant> model = pair.getSecond();
-            if (block.defaultBlockState().hasProperty(side)) {
-                multipartgenerator.with(Condition.condition().term(side, true), model.apply(resourcelocation));
-                multipartgenerator.with(condition$terminalcondition, model.apply(resourcelocation));
-            }
-        }
+        var model = this.models().getExistingFile(resourcelocation);
+        this.getMultipartBuilder(block)
+                .part().modelFile(model).uvLock(true).addModel().condition(PipeBlock.UP, true).end()
+                .part().modelFile(model).uvLock(true).addModel()
+                .condition(PipeBlock.UP, false).condition(PipeBlock.NORTH, false).condition(PipeBlock.WEST, false)
+                .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end()
+                .part().modelFile(model).addModel().condition(PipeBlock.NORTH, true).end()
+                .part().modelFile(model).addModel()
+                .condition(PipeBlock.UP, false).condition(PipeBlock.NORTH, false).condition(PipeBlock.WEST, false)
+                .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end()
+                .part().modelFile(model).rotationY(270).uvLock(true).addModel().condition(PipeBlock.WEST, true).end()
+                .part().modelFile(model).rotationY(270).uvLock(true).addModel()
+                .condition(PipeBlock.UP, false).condition(PipeBlock.NORTH, false).condition(PipeBlock.WEST, false)
+                .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end()
+                .part().modelFile(model).rotationY(180).uvLock(true).addModel().condition(PipeBlock.SOUTH, true).end()
+                .part().modelFile(model).rotationY(180).uvLock(true).addModel()
+                .condition(PipeBlock.UP, false).condition(PipeBlock.NORTH, false).condition(PipeBlock.WEST, false)
+                .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end()
+                .part().modelFile(model).rotationY(90).uvLock(true).addModel().condition(PipeBlock.EAST, true).end()
+                .part().modelFile(model).rotationY(90).uvLock(true).addModel()
+                .condition(PipeBlock.UP, false).condition(PipeBlock.NORTH, false).condition(PipeBlock.WEST, false)
+                .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end()
+                .part().modelFile(model).uvLock(true).addModel().condition(PipeBlock.DOWN, true).end()
+                .part().modelFile(model).uvLock(true).addModel()
+                .condition(PipeBlock.UP, false).condition(PipeBlock.NORTH, false).condition(PipeBlock.WEST, false)
+                .condition(PipeBlock.SOUTH, false).condition(PipeBlock.EAST, false).condition(PipeBlock.DOWN, false).end();
     }
 
     private void charredLog(Block block) {

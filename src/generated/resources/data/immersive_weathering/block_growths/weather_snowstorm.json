@@ -1,0 +1,7 @@
+{
+  "type": "snowy_stones",
+  "growth_chance": 0.1,
+  "tick_sources": [
+    "rain"
+  ]
+}

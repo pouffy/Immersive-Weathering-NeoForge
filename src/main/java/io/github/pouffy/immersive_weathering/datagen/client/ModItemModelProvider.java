@@ -7,6 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -53,6 +54,18 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.basicItem(ModBlocks.WEEDS::asItem, "immersive_weathering:block/weeds_0");
         this.basicItem(ModBlocks.IVY::asItem, "immersive_weathering:item/ivy_item");
         this.basicItem(ModBlocks.DUNE_GRASS::asItem, "immersive_weathering:item/dune_grass");
+
+        this.withExistingParent("sandy_dirt", "immersive_weathering:block/sandy_dirt");
+        this.withExistingParent("grassy_sandy_dirt", "immersive_weathering:block/grassy_sandy_dirt");
+        this.withExistingParent("silt", "immersive_weathering:block/silt");
+        this.withExistingParent("grassy_silt", "immersive_weathering:block/grassy_silt");
+        this.withExistingParent("grassy_permafrost", "immersive_weathering:block/grassy_permafrost");
+
+        basicItem(ModBlocks.ICICLE.asItem()).transforms()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
+                .rotation(0, 100, 0).translation(-1, -1, 0).scale(0.9f).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
+                .rotation(0, 100, 0).translation(0, -2, 0).scale(0.9f).end();
     }
 
     private ItemModelBuilder basicItem(Supplier<? extends Item> item, String texture, String nameSuffix) {

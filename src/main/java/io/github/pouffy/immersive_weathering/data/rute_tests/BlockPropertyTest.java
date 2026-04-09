@@ -27,7 +27,7 @@ public class BlockPropertyTest extends RuleTest {
 
     private final List<PropPredicate> propPredicates;
 
-    private BlockPropertyTest(List<PropPredicate> propPredicates) {
+    public BlockPropertyTest(List<PropPredicate> propPredicates) {
         this.propPredicates = propPredicates;
     }
 
@@ -46,7 +46,7 @@ public class BlockPropertyTest extends RuleTest {
     }
 
 
-    private static final class PropPredicate implements Predicate<BlockState> { //
+    public static final class PropPredicate implements Predicate<BlockState> { //
 
         public static Codec<PropPredicate> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BuiltInRegistries.BLOCK.byNameCodec().fieldOf("from_block").forGetter(PropPredicate::getFromBlock),

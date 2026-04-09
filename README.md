@@ -13,7 +13,5 @@
 - Loot Tables
 - Recipes
 - Advancements
-- Block Growths
 - Block States
 - Sounds
-- WorldGen Features

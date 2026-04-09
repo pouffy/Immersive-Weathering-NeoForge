@@ -84,7 +84,7 @@ public class ImmersiveWeathering {
         ModEntities.staticInit();
         ModParticles.staticInit();
         ModRuleTests.staticInit();
-        //ModFeatures.init();
+        ModFeatures.staticInit();
         ModSoundEvents.staticInit();
 
         modEventBus.addListener(ImmersiveWeatheringDataGen::gatherData);

@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 32,
+    "targets": [
+      {
+        "state": {
+          "Name": "immersive_weathering:grassy_earthen_clay",
+          "Properties": {
+            "snowy": "false",
+            "waterlogged": "false"
+          }
+        },
+        "target": {
+          "block": "minecraft:grass_block",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "immersive_weathering:earthen_clay",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        "target": {
+          "block": "minecraft:dirt",
+          "predicate_type": "minecraft:block_match"
+        }
+      }
+    ]
+  }
+}

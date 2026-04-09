@@ -1,0 +1,49 @@
+{
+  "type": "configurable",
+  "area_condition": {
+    "type": "generate_if_not_too_many",
+    "must_have": {
+      "block_state": {
+        "Name": "immersive_weathering:weeds",
+        "Properties": {
+          "age": "7"
+        }
+      },
+      "predicate_type": "minecraft:blockstate_match"
+    },
+    "radiusX": 3,
+    "radiusY": 2,
+    "radiusZ": 3,
+    "requiredAmount": 5
+  },
+  "destroy_target": true,
+  "growth_chance": 0.001,
+  "growth_for_face": [
+    {
+      "direction": "up",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:weeds",
+              "Properties": {
+                "age": "0"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    }
+  ],
+  "owners": "#immersive_weathering:fertile_blocks",
+  "replacing_target": {
+    "blocks": "#immersive_weathering:weeds_replaceable",
+    "predicate_type": "immersive_weathering:block_set_match",
+    "probability": 0.65
+  },
+  "tick_sources": [
+    "clear_sky"
+  ]
+}

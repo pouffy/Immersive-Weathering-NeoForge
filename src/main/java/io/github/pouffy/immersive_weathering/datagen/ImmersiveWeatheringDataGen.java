@@ -51,8 +51,9 @@ public class ImmersiveWeatheringDataGen {
         generator.addProvider(includeClient, blockGrowths);
         generator.addProvider(includeClient, fluidGenerators);
 
-        generator.addProvider(includeClient, itemModels);
         generator.addProvider(includeClient, blockStates);
+        generator.addProvider(includeClient, itemModels);
+
 
         generator.addProvider(includeClient && includeServer, language);
     }

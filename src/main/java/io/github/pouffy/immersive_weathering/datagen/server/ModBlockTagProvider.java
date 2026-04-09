@@ -374,6 +374,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 ModBlocks.WEATHERED_IRON_TRAPDOOR.get(),
                 ModBlocks.WEATHERED_IRON_BARS.get());
         tag(ModTags.WEED_REPLACEABLE).add(Blocks.AIR).addTag(BlockTags.CROPS);
+        tag(ModTags.SILT_REPLACEABLE).add(Blocks.DIRT, Blocks.CLAY, Blocks.SAND, Blocks.GRAVEL);
+        tag(ModTags.PERMAFROST_REPLACEABLE).add(Blocks.DIRT, Blocks.STONE, Blocks.SNOW_BLOCK);
     }
 
     protected void registerBlockMineables() {

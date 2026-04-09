@@ -1,0 +1,109 @@
+{
+  "type": "configurable",
+  "growth_chance": 0.1,
+  "growth_for_face": [
+    {
+      "direction": "north",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:thin_ice",
+              "Properties": {
+                "can_expand": "true",
+                "cracked": "0"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "east",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:thin_ice",
+              "Properties": {
+                "can_expand": "true",
+                "cracked": "0"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "south",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:thin_ice",
+              "Properties": {
+                "can_expand": "true",
+                "cracked": "0"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    },
+    {
+      "direction": "west",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "immersive_weathering:thin_ice",
+              "Properties": {
+                "can_expand": "true",
+                "cracked": "0"
+              }
+            }
+          },
+          "weight": 1
+        }
+      ],
+      "weight": 1
+    }
+  ],
+  "owners": "immersive_weathering:thin_ice",
+  "position_predicates": [
+    {
+      "type": "biome_match",
+      "biomes": "#immersive_weathering:icy"
+    },
+    {
+      "type": "day_test",
+      "day": false
+    },
+    {
+      "type": "block_test",
+      "predicate": {
+        "predicate_type": "immersive_weathering:block_property_test",
+        "properties": [
+          {
+            "from_block": "immersive_weathering:thin_ice",
+            "property": "can_expand",
+            "value": "true"
+          }
+        ]
+      }
+    }
+  ],
+  "replacing_target": {
+    "fluids": "minecraft:water",
+    "predicate_type": "immersive_weathering:fluid_match"
+  },
+  "tick_sources": [
+    "clear_sky"
+  ]
+}

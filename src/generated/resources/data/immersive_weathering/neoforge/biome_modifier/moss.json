@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#immersive_weathering:has_moss",
+  "features": "immersive_weathering:moss_patch",
+  "step": "vegetal_decoration"
+}
