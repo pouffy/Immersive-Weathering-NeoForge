@@ -371,6 +371,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleSlab(ModBlocks.CRACKED_POLISHED_BLACKSTONE_BRICK_SLAB, () -> Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS);
         simpleStairs(ModBlocks.CRACKED_POLISHED_BLACKSTONE_BRICK_STAIRS, () -> Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS);
 
+        horizontalBlock(ModBlocks.HANGING_ROOTS_WALL.get(), this.models().getExistingFile(ImmersiveWeathering.res("block/hanging_roots_side")));
     }
 
     private void simpleBlockItem(Supplier<? extends Block> block) {
