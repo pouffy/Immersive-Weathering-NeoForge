@@ -1,5 +1,6 @@
 package io.github.pouffy.immersive_weathering.reg;
 
+import com.mojang.datafixers.util.Pair;
 import io.github.pouffy.immersive_weathering.ImmersiveWeathering;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
@@ -7,12 +8,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import oshi.util.tuples.Pair;
-import oshi.util.tuples.Triplet;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class ModTags {
     public static final Set<Pair<TagKey<Item>, String>> ITEM_TAGS = new LinkedHashSet<>();

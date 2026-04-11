@@ -4,6 +4,7 @@ import io.github.pouffy.immersive_weathering.ImmersiveWeathering;
 import io.github.pouffy.immersive_weathering.datagen.client.ModBlockStateProvider;
 import io.github.pouffy.immersive_weathering.datagen.client.ModItemModelProvider;
 import io.github.pouffy.immersive_weathering.datagen.client.ModLanguageProvider;
+import io.github.pouffy.immersive_weathering.datagen.client.ModSoundsProvider;
 import io.github.pouffy.immersive_weathering.datagen.server.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -37,22 +38,26 @@ public class ImmersiveWeatheringDataGen {
         ModBlockTagProvider blockTags = new ModBlockTagProvider(output, registryProvider, ImmersiveWeathering.MOD_ID, helper);
         ModItemTagProvider itemTags = new ModItemTagProvider(output, registryProvider, blockTags.contentsGetter());
         ModBiomeTagProvider biomeTags = new ModBiomeTagProvider(output, provider, ImmersiveWeathering.MOD_ID, helper);
+        ModSoundsProvider sounds = new ModSoundsProvider(output, helper);
 
         var blockGrowths = new ModBlockGrowths(output, registryProvider);
         var fluidGenerators = new ModFluidGenerators(output, registryProvider);
 
         ModItemModelProvider itemModels = new ModItemModelProvider(output, ImmersiveWeathering.MOD_ID, helper);
         ModBlockStateProvider blockStates = new ModBlockStateProvider(output, ImmersiveWeathering.MOD_ID, helper);
+        ModRecipeProvider recipes = new ModRecipeProvider(output, registryProvider);
 
-        generator.addProvider(includeClient, blockTags);
+        generator.addProvider(includeServer, blockTags);
         generator.addProvider(includeServer, itemTags);
         generator.addProvider(includeServer, biomeTags);
         generator.addProvider(includeServer, dataMaps);
-        generator.addProvider(includeClient, blockGrowths);
-        generator.addProvider(includeClient, fluidGenerators);
+        generator.addProvider(includeServer, blockGrowths);
+        generator.addProvider(includeServer, fluidGenerators);
+        generator.addProvider(includeServer, recipes);
 
         generator.addProvider(includeClient, blockStates);
         generator.addProvider(includeClient, itemModels);
+        generator.addProvider(includeClient, sounds);
 
 
         generator.addProvider(includeClient && includeServer, language);

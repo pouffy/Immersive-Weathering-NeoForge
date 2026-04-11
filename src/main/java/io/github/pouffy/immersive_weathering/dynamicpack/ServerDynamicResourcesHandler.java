@@ -54,7 +54,8 @@ public class ServerDynamicResourcesHandler extends DynServerResourcesGenerator {
         dynamicPack.addResource(ResourceLocation.parse("neoforge:data_maps/item/compostables.json"), createCompostables(ModItems.LEAF_PILES.values(), ModItems.BARK.values()));
 
         StaticResource lootTable = StaticResource.getOrLog(manager, ResType.BLOCK_LOOT_TABLES.getPath(ImmersiveWeathering.res("oak_leaf_pile")));
-        StaticResource recipe = StaticResource.getOrLog(manager, ResType.RECIPES.getPath(ImmersiveWeathering.res("oak_leaf_pile")));
+        StaticResource recipe = StaticResource.getOrLog(manager, ResType.RECIPES.getPath(ImmersiveWeathering.res("crafting/oak_leaf_pile")));
+        StaticResource advancement = StaticResource.getOrLog(manager, ResType.ADVANCEMENTS.getPath(ImmersiveWeathering.res("recipes/decorations/crafting/oak_leaf_pile")));
 
         for (var e : ModBlocks.LEAF_PILES.entrySet()) {
             LeavesType leafType = e.getKey();
@@ -77,6 +78,12 @@ public class ServerDynamicResourcesHandler extends DynServerResourcesGenerator {
                     addLeafPileJson(Objects.requireNonNull(recipe), id, leavesId);
                 } catch (Exception ex) {
                     getLogger().error("Failed to generate Leaf Pile recipe for {} : {}", v, ex);
+                }
+
+                try {
+                    addLeafPileJson(Objects.requireNonNull(advancement), id, leavesId);
+                } catch (Exception ex) {
+                    getLogger().error("Failed to generate Leaf Pile advancement for {} : {}", v, ex);
                 }
 
             }

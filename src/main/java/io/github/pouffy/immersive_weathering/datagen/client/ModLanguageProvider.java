@@ -1,5 +1,6 @@
 package io.github.pouffy.immersive_weathering.datagen.client;
 
+import com.mojang.datafixers.util.Pair;
 import io.github.pouffy.immersive_weathering.reg.ModBlocks;
 import io.github.pouffy.immersive_weathering.reg.ModCreativeTab;
 import io.github.pouffy.immersive_weathering.reg.ModItems;
@@ -10,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -17,9 +19,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import oshi.util.tuples.Pair;
 
 import java.util.NoSuchElementException;
+import java.util.function.Supplier;
 
 public class ModLanguageProvider extends LanguageProvider {
     public ModLanguageProvider(PackOutput output, String modid, String locale) {
@@ -43,12 +45,17 @@ public class ModLanguageProvider extends LanguageProvider {
         });
 
         for (Pair<TagKey<Item>, String> tag : ModTags.ITEM_TAGS) {
-            ResourceLocation tagId = tag.getA().location();
+            ResourceLocation tagId = tag.getFirst().location();
             String tagNamespace = tagId.getNamespace().equals("forge") ? "c" : tagId.getNamespace();
-            super.add("tag.item.%s.%s".formatted(tagNamespace, tagId.getPath().replace('/', '.')), tag.getB());
+            super.add("tag.item.%s.%s".formatted(tagNamespace, tagId.getPath().replace('/', '.')), tag.getSecond());
         }
 
         this.tab(ModCreativeTab.MOD_TAB);
+
+        for (Pair<Supplier<SoundEvent>, String> entry : ModSoundsProvider.subtitles) {
+            ResourceLocation id = entry.getFirst().get().getLocation();
+            super.add("%s.subtitle.%s".formatted(id.getNamespace(), id.getPath()), entry.getSecond());
+        }
     }
 
     private void tab(Holder<CreativeModeTab> tabHolder) {
